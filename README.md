@@ -4,7 +4,6 @@
 ![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?logo=supabase)
 ![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-2.2.19-blue?logo=tailwind-css)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue?logo=typescript)
-![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 > IDNemas45 adalah website artikel sederhana yang menggabungkan **fetch API (NewsAPI)** dan **manajemen data (CRUD)** secara efisien dengan dukungan autentikasi dan dashboard admin. Dibuat dengan Next.js 15 dan Supabase.
 
@@ -24,7 +23,16 @@
 
 ## 🖼️ Preview
 
-![homepage preview](https://via.placeholder.com/1200x600.png?text=IDNemas45+Homepage+Preview)
+<div align="center">
+
+### 🏠 Homepage
+![Homepage](/homepage.png)
+*Tampilan homepage dengan berita terkini dan harga emas*
+
+### 📊 Dashboard  
+![Dashboard](/dashboard.png)
+*Real-time gold price monitoring*
+</div>
 
 🔗 **Live URL**: [https://idnemas45.vercel.app](https://idnemas45.vercel.app)
 
@@ -48,8 +56,8 @@
 
 ### 1. Clone Repository
 ```bash
-git clone https://github.com/username/idnemas45.git
-cd idnemas45
+git clone https://github.com/dikamulyana202/IDNemas45.git
+cd IDNemas45
 ```
 
 ### 2. Install Dependencies
@@ -109,8 +117,6 @@ Setelah menjalankan seed:
 - **Email**: `admin@gmail.com`
 - **Password**: `asd`
 
-> ⚠️ **Penting**: Ubah kredensial admin setelah login pertama.
-
 ---
 
 ## 🛡️ Security Features
@@ -135,11 +141,11 @@ Setelah menjalankan seed:
 - [Next.js Documentation](https://nextjs.org/docs)
 - [Supabase Guides](https://supabase.com/docs)
 - [shadcn/ui Components](https://ui.shadcn.com/)
-- [NewsAPI](https://newsapi.org/) untuk data artikel
+- [NewsAPI](https://newsapi.org/)
 
 ---
 
 <div align="center">
-  <p>Made with ❤️ by <strong>IDNemas45 Team</strong></p>
+  <p>Made with ❤️ by <strong>Dika Mulyana</strong></p>
   <p>⭐ Star this repo if you find it helpful!</p>
 </div>
