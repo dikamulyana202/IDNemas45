@@ -12,7 +12,9 @@ const Navbar = () => {
 			<nav className="flex justify-between px-5 text-xl">
 				<ul>
 					<li className="text-2xl">
-						<Link href="/">Article</Link>
+						<Link href="/">
+							<img src="/logo.png" alt="logo" className="h-12 w-auto" />
+						</Link>
 					</li>
 				</ul>
 
