@@ -24,16 +24,13 @@
 ## 🖼️ Preview
 
 <div align="center">
-
-### 🏠 Homepage
 ![Homepage](/public/homepage.png)
-*Tampilan homepage dengan berita terkini dan harga emas*
+*Tampilan halaman homepage*
 
  ---
 
-### 📊 Dashboard  
 ![Dashboard](/public/dashboard.png)
-*Real-time gold price monitoring*
+*kelola data artikel*
 </div>
 
 🔗 **Live URL**: [https://idnemas45.vercel.app](https://idnemas45.vercel.app)
