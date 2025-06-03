@@ -1,36 +1,145 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📰 IDNemas45 - Simple Web Artikel
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
+![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?logo=supabase)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-2.2.19-blue?logo=tailwind-css)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.9-blue?logo=typescript)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-First, run the development server:
+> IDNemas45 adalah website artikel sederhana yang menggabungkan **fetch API (NewsAPI)** dan **manajemen data (CRUD)** secara efisien dengan dukungan autentikasi dan dashboard admin. Dibuat dengan Next.js 15 dan Supabase.
 
+---
+
+## ✨ Fitur Utama
+
+- 🔐 **Authentication** — via NextAuth (email/password)
+- 🧱 **Role-based Middleware** — admin & user
+- ✍️ **CRUD Artikel** — Buat, edit, hapus artikel
+- 🔎 **Fetch dari NewsAPI** — Menarik artikel topik tertentu
+- 💾 **Database PostgreSQL (via Supabase)**
+- 💨 **Tailwind + Shadcn UI** — UI modern
+- 🔁 **Validasi data** — pakai Zod
+
+---
+
+## 🖼️ Preview
+
+![homepage preview](https://via.placeholder.com/1200x600.png?text=IDNemas45+Homepage+Preview)
+
+🔗 **Live URL**: [https://idnemas45.vercel.app](https://idnemas45.vercel.app)
+
+---
+
+## 🧪 Tech Stack
+
+| Category | Technology |
+|----------|------------|
+| **Framework** | [Next.js 15](https://nextjs.org/) |
+| **Database** | [Supabase](https://supabase.com/) (PostgreSQL) |
+| **ORM** | [Prisma](https://www.prisma.io/) |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/), [shadcn/ui](https://ui.shadcn.com/) |
+| **Authentication** | [NextAuth.js](https://next-auth.js.org/) |
+| **Data Fetching** | [Axios](https://axios-http.com/) |
+| **Validation** | [Zod](https://zod.dev/) |
+
+---
+
+## 🚀 Instalasi & Setup Lokal
+
+### 1. Clone Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/username/idnemas45.git
+cd idnemas45
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Setup Environment Variables
+```bash
+cp .env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edit `.env.local` dengan konfigurasi berikut:
+```env
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
-## Learn More
+# Database
+DATABASE_URL="postgresql://username:password@host:port/database"
 
-To learn more about Next.js, take a look at the following resources:
+# NewsAPI
+NEWS_API_KEY=your_newsapi_key
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# NextAuth
+NEXTAUTH_SECRET=your_nextauth_secret_key
+NEXTAUTH_URL=http://localhost:3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Setup Database
+```bash
+# Generate Prisma client
+npx prisma generate
 
-## Deploy on Vercel
+# Push schema ke database
+npx prisma db push
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# Seed data admin
+npx prisma db seed
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# fetching data articles
+npx ts-node scripts/runFetch.ts
+```
+
+### 5. Jalankan Development Server
+```bash
+npm run dev
+```
+
+Buka [http://localhost:3000](http://localhost:3000) di browser.
+
+---
+
+## 🔑 Default Admin Login
+
+Setelah menjalankan seed:
+- **Email**: `admin@gmail.com`
+- **Password**: `asd`
+
+> ⚠️ **Penting**: Ubah kredensial admin setelah login pertama.
+
+---
+
+## 🛡️ Security Features
+
+- ✅ **Password Hashing** menggunakan bcryptjs
+- ✅ **JWT Tokens** untuk session management
+- ✅ **Role-based Access Control** (Admin/User)
+- ✅ **Input Validation** menggunakan Zod
+
+---
+
+## 📞 Contact & Support
+
+- **Developer**: [Your Name](https://github.com/username)
+- **Email**: developer@idnemas45.com
+- **Project Link**: [https://github.com/username/idnemas45](https://github.com/username/idnemas45)
+
+---
+
+## 🙏 Acknowledgments
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [Supabase Guides](https://supabase.com/docs)
+- [shadcn/ui Components](https://ui.shadcn.com/)
+- [NewsAPI](https://newsapi.org/) untuk data artikel
+
+---
+
+<div align="center">
+  <p>Made with ❤️ by <strong>IDNemas45 Team</strong></p>
+  <p>⭐ Star this repo if you find it helpful!</p>
+</div>
