@@ -24,6 +24,7 @@
 ## 🖼️ Preview
 
 <div align="center">
+ 
 ![Homepage](/public/homepage.png)
 *Tampilan halaman homepage*
 
