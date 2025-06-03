@@ -26,11 +26,13 @@
 <div align="center">
 
 ### 🏠 Homepage
-![Homepage](/homepage.png)
+![Homepage](/public/homepage.png)
 *Tampilan homepage dengan berita terkini dan harga emas*
 
+ ---
+
 ### 📊 Dashboard  
-![Dashboard](/dashboard.png)
+![Dashboard](/public/dashboard.png)
 *Real-time gold price monitoring*
 </div>
 
