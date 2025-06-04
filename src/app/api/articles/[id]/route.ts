@@ -1,13 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { PrismaClient } from '@prisma/client'
+import { NextRequest, NextResponse } from 'next/server';
+import { PrismaClient, Article, Category } from '@prisma/client';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
+
+type ArticleWithCategory = Article & {
+   category: Category;
+};
 
 export async function GET(
    req: NextRequest,
    { params }: { params: Promise<{ id: string }> }
 ) {
    const { id } = await params;
+   const { searchParams } = new URL(req.url);
+   const includeRelated = searchParams.get('related') === 'true';
 
    try {
       const article = await prisma.article.findUnique({
@@ -21,10 +27,41 @@ export async function GET(
          return NextResponse.json({ error: 'Article not found' }, { status: 404 });
       }
 
-      return NextResponse.json(article);
+      // If related articles are requested, fetch them in the same request
+      let relatedArticles: ArticleWithCategory[] = [];
+      if (includeRelated) {
+         relatedArticles = await prisma.article.findMany({
+            where: {
+               categoryId: article.categoryId,
+               id: {
+                  not: article.id // Exclude current article
+               }
+            },
+            include: {
+               category: true
+            },
+            orderBy: {
+               publishedAt: 'desc'
+            },
+            take: 6 // Limit to 6 related articles
+         });
+      }
+
+      const response = {
+         ...article,
+         ...(includeRelated && { relatedArticles })
+      };
+
+      return NextResponse.json(response);
+
    } catch (error) {
-      console.error(error);
-      return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+      console.error('Error fetching article:', error);
+      return NextResponse.json(
+         { error: 'Internal server error' },
+         { status: 500 }
+      );
+   } finally {
+      await prisma.$disconnect();
    }
 }
 

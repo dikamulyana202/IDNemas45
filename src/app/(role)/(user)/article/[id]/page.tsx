@@ -9,6 +9,7 @@ import Link from "next/link";
 
 // Types based on your API
 interface Category {
+	id: string;
 	name: string;
 }
 
@@ -21,6 +22,7 @@ interface Article {
 	sourceUrl: string;
 	author: string;
 	publishedAt: string;
+	categoryId: string;
 	category: Category;
 }
 
@@ -39,16 +41,16 @@ export default function ArticleDetailPage() {
 	const [article, setArticle] = useState<Article | null>(null);
 	const [relatedArticles, setRelatedArticles] = useState<RelatedArticle[]>([]);
 	const [loading, setLoading] = useState(true);
-	const [relatedLoading, setRelatedLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		const fetchArticle = async () => {
+		const fetchArticleWithRelated = async () => {
 			try {
 				setLoading(true);
 				setError(null);
 
-				const response = await fetch(`/api/articles/${id}`);
+				// Fetch article with related articles in single request
+				const response = await fetch(`/api/articles/${id}?related=true`);
 
 				if (!response.ok) {
 					if (response.status === 404) {
@@ -60,9 +62,18 @@ export default function ArticleDetailPage() {
 				}
 
 				const data = await response.json();
-				const articleData = data.data || data;
 
-				setArticle(articleData);
+				// Set article data
+				setArticle(data);
+
+				// Set related articles (filter out current article just in case)
+				const related = data.relatedArticles || [];
+				const filteredRelated = related
+					.filter((art: RelatedArticle) => art.id !== id)
+					.slice(0, 3);
+
+				setRelatedArticles(filteredRelated);
+
 			} catch (err) {
 				setError(err instanceof Error ? err.message : 'Terjadi kesalahan');
 			} finally {
@@ -71,52 +82,9 @@ export default function ArticleDetailPage() {
 		};
 
 		if (id) {
-			fetchArticle();
+			fetchArticleWithRelated();
 		}
 	}, [id]);
-
-	useEffect(() => {
-		const fetchRelatedArticles = async () => {
-			if (!article) return;
-
-			try {
-				setRelatedLoading(true);
-
-				// Langsung gunakan endpoint related yang sudah ada
-				let relatedResponse = await fetch(`/api/articles/${id}/related?limit=6`);
-
-				// Fallback ke endpoint articles umum jika related endpoint gagal  
-				if (!relatedResponse.ok) {
-					relatedResponse = await fetch(`/api/articles?limit=10`);
-				}
-
-				if (relatedResponse.ok) {
-					const relatedData = await relatedResponse.json();
-
-					let articles = relatedData.data || relatedData.articles || relatedData;
-
-					if (!Array.isArray(articles)) {
-						articles = [];
-					}
-
-					// Filter current article dan ambil 4 artikel dengan proper typing
-					const filteredArticles = articles
-						.filter((art: RelatedArticle) => art.id !== id)
-						.slice(0, 3);
-
-					setRelatedArticles(filteredArticles);
-				} else {
-					setRelatedArticles([]);
-				}
-			} catch (err) {
-				setRelatedArticles([]);
-			} finally {
-				setRelatedLoading(false);
-			}
-		};
-
-		fetchRelatedArticles();
-	}, [article, id]);
 
 	const formatDate = (dateString: string) => {
 		const date = new Date(dateString);
@@ -264,6 +232,10 @@ export default function ArticleDetailPage() {
 										<Clock className="h-4 w-4 mr-2 text-gray-400" />
 										<span>{formatTime(article.publishedAt)}</span>
 									</div>
+									<div className="flex items-center">
+										<Eye className="h-4 w-4 mr-2 text-gray-400" />
+										<span>{readingTime} menit baca</span>
+									</div>
 								</div>
 
 								{/* Title */}
@@ -350,12 +322,7 @@ export default function ArticleDetailPage() {
 								</div>
 
 								{/* Related Articles Content */}
-								{relatedLoading ? (
-									<div className="p-6 text-center">
-										<Loader2 className="h-6 w-6 animate-spin mx-auto mb-2 text-blue-600" />
-										<p className="text-sm text-gray-600">Memuat artikel terkait...</p>
-									</div>
-								) : relatedArticles.length > 0 ? (
+								{relatedArticles.length > 0 ? (
 									<div className="divide-y divide-gray-100">
 										{relatedArticles.map((relatedArticle, index) => (
 											<Link key={relatedArticle.id} href={`/article/${relatedArticle.id}`}>
